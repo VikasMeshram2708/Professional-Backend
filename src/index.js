@@ -10,7 +10,16 @@ dotenv.config({
   path: './env',
 });
 
-connectDB();
+connectDB()
+  .then(() => {
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`Listening of http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log('MongoDB connection failed!!!', err);
+  });
 
 // async () => {
 //   try {
